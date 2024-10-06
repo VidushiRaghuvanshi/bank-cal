@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+.hidden{
+    display: none;
+}
+    </style>
+    </head>
+    <body>
+<div class="container" id="login">
+   <center> <h2> Bank App Login</h2></center>
+    <h3> Enter Name to Login:</h3>
+    <input type="text" id="usernameinput" placeholder="username"><br><br>
+    <button onclick=" login()">Login</button>
+</div>
+<div class="container hidden" id="page">
+    <h3> Welcome <span id="usernamedisplay"></span></h3>
+    <p>Current Balance <strong>Rs.<span id="balance">0</span></strong></p>
+    <h3> Manage your Money</h3>
+    <input type=" number" id="transactioninput" placeholder="Enter Ammount"><br><br>
+    <button onclick="creditMoney()"> Credit</button>
+    <button onclick="debitMoney()">Debit</button><br><br>
+    <button onclick="logout()">Logout</button>
+</div>
+<script>
+    let balance=0;
+    function login(){
+        const username=document.getElementById("usernameinput").value;
+        if (username) {
+document.getElementById('loginPage').classList.add('hidden');
+document.getElementById('accountPage').classList.remove('hidden');
+document.getElementById('usernameDisplay').textContent = username;
+} else {
+alert("Please enter a username.");
+}
+    }
+     function creditMoney(){
+        const amount= parseFloat(document.getElementById("transactioninput").value);
+        if(!isNaN(amount) && amount> 0 ){
+            balance +=amount;
+            document.getElementById("balance").textcontent = balance.toFixed(2);
+            document,getElementById("transactioninput").value="";
+        }
+    else{
+        alert("Please enter amount.");
+    }
+     }
+     function debitMoney(){
+        const amount= parseFloat(document.getElementById("transactioninput").value);
+        if(!isNaN(amount) && amount>0 && amount<= balance) {
+            balance -= amount;
+            document.getElementById("balance").textContent= balance.toFixed(2);
+            document.getElementById("transactioninput").value="";
+        } else if(amount>balance){
+            alert("Insufficient funds.");
+        } else{
+            alert("Please enter amount.");
+        }
+     }
+     function logout(){
+        balance=0;
+        document.getElementById("balance").textContent ="0";
+        document.getElementById("usernameinput").value="";
+        document.getElementById("loginpage").classList.remove("hidden");
+        document.getElementById("accountpage").classlist.add("hidden");
+     }
+</script>
+
+    </body>
+    </html>
